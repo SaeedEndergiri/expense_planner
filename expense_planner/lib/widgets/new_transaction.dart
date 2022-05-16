@@ -9,22 +9,49 @@ import '/widgets/adaptive_text_button.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTxHandler;
 
-  NewTransaction(this.addTxHandler);
+  NewTransaction(this.addTxHandler){
+    print('Constructor NewTransaction Widget');
+  }
 
   @override
-  State<NewTransaction> createState() => _NewTransactionState();
+  State<NewTransaction> createState() {
+    print('cureateState NewTransaction widget');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
+  dynamic  _selectedDate;
+  
+  _NewTransactionState(){
+    print('Constructor NewTransactionState');
+  }
+  
+  @override
+  void initState() {
+    print('initState()');
+    super.initState();
+  }
+  
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    print('didUpdateWidget()');
+    super.didUpdateWidget(oldWidget);
+  }
+  
+  @override
+  void dispose() {
+    print('dispose()');
+    super.dispose();
+  }
 
   void _addNewTx() {
     if (_amountController.text.isEmpty) return;
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
-    if (enteredTitle.isEmpty || enteredAmount <= 0) return;
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) return;
     widget.addTxHandler(enteredTitle, enteredAmount, _selectedDate);
 
     Navigator.of(context).pop();
@@ -59,7 +86,7 @@ class _NewTransactionState extends State<NewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: const InputDecoration(labelText: 'Title'),
                 controller: _titleController,
                 onSubmitted: (_) => _addNewTx(),
                 // onChanged: (val) {
@@ -67,7 +94,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 // },
               ),
               TextField(
-                decoration: InputDecoration(labelText: 'Amount'),
+                decoration: const InputDecoration(labelText: 'Amount'),
                 controller: _amountController,
                 keyboardType: TextInputType.number,
                 onSubmitted: (_) => _addNewTx(),
@@ -87,7 +114,7 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               ElevatedButton(
                 onPressed: _addNewTx,
-                child: Text('Add Transaction'),
+                child: const Text('Add Transaction'),
                 style: ElevatedButton.styleFrom(
                   primary: Theme.of(context).primaryColor,
                   onPrimary: Theme.of(context).textTheme.button!.color,

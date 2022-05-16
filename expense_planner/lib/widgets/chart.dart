@@ -6,7 +6,10 @@ import 'chart_bar.dart';
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
-  Chart(this.recentTransactions);
+  Chart(this.recentTransactions) {
+    print('Constructor Chart');
+  }
+
   List<Map<String, dynamic>> get groupedTransactionValues {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(
@@ -36,11 +39,12 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build() Chart');
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: groupedTransactionValues
